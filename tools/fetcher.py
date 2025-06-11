@@ -1,5 +1,6 @@
 import requests
 import time 
+import log
 def fetch_stock_ticker(company_name: str) -> str:
     if "." in company_name:
         return company_name
@@ -10,15 +11,15 @@ def fetch_stock_ticker(company_name: str) -> str:
     }
     url = f"https://query2.finance.yahoo.com/v1/finance/search?q={company_name}"
     response = requests.get(url, headers=headers)
-    print("Response status:", response.status_code)
+    log.logger.info("Response status:", response.status_code)
     if response.status_code == 429:
         print("Rate limit hit. Retrying after 60 seconds...")
         time.sleep(60)
         response = requests.get(url, headers=headers)
-        print("Response status:", response.status_code)
+        log.logger.info("Response status:", response.status_code)
 
     if response.status_code != 200:
-        raise Exception("Company not found !!")
+        log.logger.warning("Company not found !!")
     data = response.json()
     quotes = data.get("quotes",[])
     for quote in quotes:
@@ -35,9 +36,6 @@ def fetch_stock_ticker(company_name: str) -> str:
     for quote in quotes:
         if quote.get("symbol", "").endswith(".NS"):
             return quote["symbol"]
-    # for quote in quotes:
-    #     if quote.get("symbol", "").endswith(".BO"):
-    #         return quote['symbol']
     # 4. Final fallback
     if quotes:
         return quotes[0]["symbol"]

@@ -10,6 +10,3 @@ Analyze the stock and return:
 2. Should the user buy or sell the stock now? (No ambigious response. Be clear !!)
 3. Confidence score of your analysis (out of 100). 
 ## Follow the PARAMS strictly
-
-PARAMS:
-    - TEMPERATURE : 0.3 (Be deterministic)
