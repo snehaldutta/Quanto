@@ -29,7 +29,7 @@ def stock_price_fetcher(symbol: str) -> str:
             result['industry'] = tick.info['industry']
 
         if 'longBusinessSummary' in tick.info and tick.info['longBusinessSummary'] is not None:
-            result['desc'] = result['longBusinessSummary'] 
+            result['desc'] = tick.info['longBusinessSummary'] 
 
         if result['current_price'] is None:
             log.logger.warning(f'Price not found for {symbol}')
