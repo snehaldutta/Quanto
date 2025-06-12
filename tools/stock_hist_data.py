@@ -1,5 +1,5 @@
 import yfinance as yf
-from technicals import calculate_rsi
+from tools.technicals import calculate_rsi
 import pandas as pd
 import log
 from data_cleaning import clean_data_history
@@ -7,6 +7,7 @@ from langchain_core.tools import tool
 
 @tool
 def stock_hist_data(symbol: str, period:str ='6mo')-> pd.DataFrame:
+    """ It fetches the company's historical data for analysis"""
     tick = yf.Ticker(symbol)
 
     try:

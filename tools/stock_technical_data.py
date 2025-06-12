@@ -6,6 +6,7 @@ from langchain_core.tools import tool
 
 @tool
 def stock_price_technicals(symbol:str)-> pd.DataFrame:
+    """It fetches the quarterly data of a company"""
     tick = yf.Ticker(symbol)
     
     try:
