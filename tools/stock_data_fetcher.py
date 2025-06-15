@@ -30,14 +30,14 @@ class stockPriceFetcherOutput(BaseModel):
     @field_validator("industry")
     @classmethod
     def check_industry(cls, value):
-        if value is "Unknown":
+        if value == "Unknown":
             return log.logger.error("Not able to fetch the value !!")
         return value
     
 
 class stockPriceFetcherTool(BaseTool):
-    name = "stock_price_fetcher"
-    description = "Fetches the current price, pe ratio, industry and description of the company"
+    name: str = "stock_price_fetcher"
+    description: str = "Fetches the current price, pe ratio, industry and description of the company"
     args_schema : Type[BaseModel] = stockPriceFetcherInput
     def _run(self,symbol: str) -> str:
         tick = yf.Ticker(symbol)

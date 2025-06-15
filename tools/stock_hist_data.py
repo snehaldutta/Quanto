@@ -4,14 +4,15 @@ import pandas as pd
 import log
 from data_cleaning import clean_data_history
 from langchain_core.tools import BaseTool
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, field_validator, ConfigDict
 from typing import Type, Any, Dict
 class stockHistDataInput(BaseModel):
     symbol : str
 class stockHistDataOuput(BaseModel):
     clean_data: pd.DataFrame = None
 
-    @field_validator
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+    @field_validator("clean_data")
     @classmethod
     def check_clean_data(cls,value: pd.DataFrame):
         if value is not None:
@@ -21,8 +22,8 @@ class stockHistDataOuput(BaseModel):
 
         return value
 class stockHistDataTool(BaseTool):
-    name = "stock_hist_data"
-    description = "It fetches the company's historical data for analysis"
+    name: str = "stock_hist_data"
+    description: str = "It fetches the company's historical data for analysis"
     args_schema: Type[BaseModel] = stockHistDataInput
     def _run(self, symbol: str, period:str ='6mo')-> Dict[str, Any]:
 
