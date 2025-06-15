@@ -39,8 +39,8 @@ class stockHistDataTool(BaseTool):
             val_data = validated_data.clean_data
             inp_data = val_data.tail(20).reset_index()
             return {
-                "markdown_data": inp_data.to_markdown(index=False),
-                'json_data': inp_data.to_json(orient='records')
+                # "markdown_data": inp_data.to_markdown(index=False),
+                "json_data": inp_data.to_json(orient='records')
             }
 
         except Exception as e:

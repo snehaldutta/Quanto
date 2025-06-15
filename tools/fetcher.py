@@ -11,25 +11,22 @@ def fetch_stock_ticker(company_name: str) -> str:
     }
     url = f"https://query2.finance.yahoo.com/v1/finance/search?q={company_name}"
     response = requests.get(url, headers=headers)
-    log.logger.info("Response status:", response.status_code)
+    log.logger.info(f"Response status: {response.status_code}")
     if response.status_code == 429:
         print("Rate limit hit. Retrying after 60 seconds...")
         time.sleep(60)
         response = requests.get(url, headers=headers)
-        log.logger.info("Response status:", response.status_code)
+        log.logger.info(f"Response status: {response.status_code}")
 
     if response.status_code != 200:
         log.logger.warning("Company not found !!")
     data = response.json()
     quotes = data.get("quotes",[])
     for quote in quotes:
-        # print("Comparing:", quote.get("longname", ""), "<->", company_name)
         if quote.get('longname', '').strip().lower() == company_name.strip().lower() and quote.get("symbol", "").endswith('.NS'):
-            # print("Matched:", quote['symbol'])
             return quote['symbol']
         
         if quote.get('longname', '').strip().lower() == company_name.strip().lower() and quote.get("symbol", "").endswith('.BO'):
-            # print("Matched:", quote['symbol'])
             return quote['symbol']
         
     # 3. Fallback to any .NS ticker
