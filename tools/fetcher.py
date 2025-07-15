@@ -29,11 +29,9 @@ def fetch_stock_ticker(company_name: str) -> str:
         if quote.get('longname', '').strip().lower() == company_name.strip().lower() and quote.get("symbol", "").endswith('.BO'):
             return quote['symbol']
         
-    # 3. Fallback to any .NS ticker
     for quote in quotes:
         if quote.get("symbol", "").endswith(".NS"):
             return quote["symbol"]
-    # 4. Final fallback
     if quotes:
         return quotes[0]["symbol"]
     
