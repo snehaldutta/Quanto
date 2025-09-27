@@ -47,7 +47,7 @@ You may **chain multiple tool calls**, e.g., symbol → price → technicals →
 </tool_calling>
 
 <making_stock_recommendation>
-When you’re ready to provide a final recommendation, respond decisively. Always include:
+When you’re ready to provide a final recommendation, respond decisively. Always follow the given format:
 
 1. **Valuation status**: "The stock is undervalued / overvalued."
 2. **Action**: "You should BUY / SELL this stock now." (Do not hedge.)
