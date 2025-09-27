@@ -39,7 +39,7 @@ try:
     llm = ChatOpenAI(
         api_key=API_K,
         base_url=BASE_U,
-        model="meta-llama/llama-3.3-70b-instruct:free",
+        model="meta-llama/llama-3.3-8b-instruct:free",
         temperature=0.10
     )
     log.logger.info("✅ Initialised successfully !!")
